@@ -83,7 +83,7 @@ Astrolytics/
 
 ## 📈 Example Forecast Output
 
-<img src="time-series-forecast/static/plot_forecast.png" alt="Forecast Plot" width="600">
+<img src="static/plot_forecast.png" alt="Forecast Plot" width="600">
 
 ---
 
