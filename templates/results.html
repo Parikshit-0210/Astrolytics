@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            white-space: pre-wrap;       /* CSS3 */
+            white-space: -moz-pre-wrap;  /* Firefox */
+            white-space: -pre-wrap;      /* Opera <7 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* IE */
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Forecast Results for {{ results.ticker }}</h1>
+        <p><strong>P-Value from ADF Test:</strong> {{ results.p_value }}</p>
+        <p>
+            {% if results.p_value < 0.05 %}
+                ✅ The data is **stationary**, meaning it does not have a significant trend or seasonality.
+            {% else %}
+                ⚠️ The data is **not stationary**, meaning it has a trend or seasonality. Differencing might be needed.
+            {% endif %}
+        </p>
+
+        <!-- Closing Price Plot -->
+        <h2>1️⃣ Stock Closing Price Over Time</h2>
+        <img src="{{ url_for('static', filename='plot_closing_price.png') }}" alt="Closing Prices">
+        <p>📌 This plot shows how the stock price has fluctuated over time. A clear trend or seasonal pattern may indicate predictability.</p>
+
+        <!-- Seasonal Decomposition Plot -->
+        <h2>2️⃣ Time-Series Decomposition</h2>
+        <img src="{{ url_for('static', filename='plot_decomposition.png') }}" alt="Time Series Decomposition">
+        <p>🔍 This decomposition splits the time series into three components:</p>
+        <ul>
+            <li>📈 <strong>Trend</strong>: Long-term movement.</li>
+            <li>📊 <strong>Seasonality</strong>: Repeating patterns at regular intervals.</li>
+            <li>⚡ <strong>Residuals</strong>: Unexplained variations (random noise).</li>
+        </ul>
+
+        <!-- ACF and PACF Plot -->
+        <h2>3️⃣ Autocorrelation & Partial Autocorrelation</h2>
+        <img src="{{ url_for('static', filename='plot_acf_pacf.png') }}" alt="ACF and PACF">
+        <p>🔗 These plots help determine how past values influence future values:</p>
+        <ul>
+            <li>📌 **ACF (Autocorrelation Function)**: Shows how past values correlate with future values.</li>
+            <li>📌 **PACF (Partial Autocorrelation Function)**: Helps determine ARIMA parameters (p, q).</li>
+        </ul>
+
+        <!-- Forecast Plot -->
+        <h2>4️⃣ Forecast for Next {{ results.n_days }} Days</h2>
+        <img src="{{ url_for('static', filename='plot_forecast.png') }}" alt="Forecast Plot">
+        <p>📊 This plot shows the **forecasted stock prices** for the next <strong>{{ results.n_days }}</strong> days.</p>
+        <ul>
+            <li>🚀 **ARIMA & SARIMA** predict future price movements based on trends and seasonality.</li>
+            <li>⚡ **GARCH** predicts **volatility**, meaning how much prices will fluctuate.</li>
+            <li>📉 **Confidence Intervals** show the range of possible values.</li>
+        </ul>
+
+        <h3>Predicted Values:</h3>
+        <pre>{{ results.forecast_values }}</pre>
+
+        <h3>Evaluation Metrics:</h3>
+        <pre>
+            MSE: {{ results.metrics.MSE }}<br>
+            RMSE: {{ results.metrics.RMSE }}<br>
+            MAE: {{ results.metrics.MAE }}
+        </pre>
+
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>
