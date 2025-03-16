@@ -1,8 +1,0 @@
-Flask
-yfinance
-pandas
-numpy
-matplotlib
-statsmodels
-scikit-learn
-arch
