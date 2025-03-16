@@ -5,7 +5,7 @@ Astrolytics is a time-series forecasting web application that leverages machine 
 ---
 
 ## 🌟 Features
-
+👉 **Live Deployment** – Access the web application here: **[Astrolytics](https://astrolytics.onrender.com)**
 ✅ **Real-Time Data Retrieval** – Fetch stock price data using Yahoo Finance API.\
 ✅ **Data Preprocessing** – Handle missing values, ensure data consistency, and perform stationarity checks.\
 ✅ **Exploratory Data Analysis (EDA)** – Visualize trends, seasonality, and correlations.\
