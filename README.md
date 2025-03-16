@@ -83,7 +83,7 @@ Astrolytics/
 
 ## 📈 Example Forecast Output
 
-<img src="{{ url_for('static', filename='plot_forecast.png') }}" alt="Forecast Plot" width="600">
+<img src="{{ url_for('time-series-forecast/static', filename='plot_forecast.png') }}" alt="Forecast Plot" width="600">
 
 ---
 
